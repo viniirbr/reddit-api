@@ -1,13 +1,13 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 function CategorySelector() {
   return (
       <ButtonRow>
-          <Link to={'/hot'}><button>Hot</button></Link>
-          <Link to={'/news'}><button>News</button></Link>
-          <Link to={'/rising'}><button>Rising</button></Link>
+          <NavLink to={'/hot'}><button>Hot</button></NavLink>
+          <NavLink to={'/new'}><button>News</button></NavLink>
+          <NavLink to={'/rising'}><button>Rising</button></NavLink>
       </ButtonRow>
   )
 }
@@ -26,7 +26,6 @@ const ButtonRow = styled.div`
         background: rgba(167, 176, 190, 1);
         color: white;
         cursor: pointer;
-;
     }
 `
 

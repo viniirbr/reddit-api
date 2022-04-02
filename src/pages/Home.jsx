@@ -1,31 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
+import Posts from '../components/PostsList';
 
 function Home() {
 
-    const [reddits, setReddits] = useState([])
-    
-    const params = useParams();
-
-    useEffect(()=>{
-        getReddits()
-    }, []);
-    
-    const getReddits = async (section) => {
-        const response = await fetch(`https://www.reddit.com/r/reactjs/hot.json?limit=10`);
-        const data = await response.json();
-        setReddits(data.data.children);
-        console.log(reddits)
-    }
-
     return (
-        <div>
-            {reddits.map((reddit) => {
-                return(
-                    <h1 key={reddit.id}>{reddit.data.title}</h1>
-                )
-            })}
-        </div>
+        <Routes>
+            <Route path='/:section' element={<Posts/>}/>
+        </Routes>
     )
 }
 
