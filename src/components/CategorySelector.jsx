@@ -6,7 +6,7 @@ function CategorySelector() {
     return (
         <ButtonRow>
             <Navigation to={'/hot'}>Hot</Navigation>
-            <Navigation to={'/new'}>News</Navigation>
+            <Navigation to={'/new'}>New</Navigation>
             <Navigation to={'/rising'}>Rising</Navigation>
         </ButtonRow>
     )

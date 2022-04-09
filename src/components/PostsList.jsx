@@ -4,33 +4,37 @@ import styled from 'styled-components';
 import Post from './Post';
 import CircularProgress from '@mui/material/CircularProgress';
 
-function Posts() {
+function PostsList() {
     const [reddits, setReddits] = useState([])
-    
+
     const params = useParams();
 
-    useEffect(()=>{
+    useEffect(() => {
         getReddits(params.section)
-    });
-    
+    }, [params.section]);
+
     const getReddits = async (section) => {
         const response = await fetch(`https://www.reddit.com/r/reactjs/${section}.json?limit=10`);
         const data = await response.json();
         setReddits(data.data.children);
-        console.log(data)
     }
-  return (
-    <PostsList>
-        {(reddits.length===0)?<CircularProgress/>:reddits.map(item => {
-            return(
-            <Post key={item.data.id} title={item.data.title} author={item.data.author} url={item.data.url}/>
-            )
-        })}
-    </PostsList>
-  )
+    return (
+        <PostsWrapper>
+            {(reddits.length === 0) ? <CircularProgress /> : reddits.map(item => {
+                return (
+                    <Post
+                        key={item.data.id}
+                        title={item.data.title}
+                        author={item.data.author}
+                        url={item.data.url}
+                        date={item.data.created_utc} />
+                )
+            })}
+        </PostsWrapper>
+    )
 }
 
-const PostsList = styled.div`
+const PostsWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,4 +43,4 @@ const PostsList = styled.div`
     width: 90%;
 `
 
-export default Posts
+export default PostsList;

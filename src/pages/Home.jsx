@@ -1,11 +1,12 @@
-import { Route, Routes } from 'react-router-dom'
-import Posts from '../components/PostsList';
+import { Route, Routes, Navigate} from 'react-router-dom'
+import PostsList from '../components/PostsList'
 
 function Home() {
 
     return (
         <Routes>
-            <Route path='/:section' element={<Posts/>}/>
+            <Route path='/' element={<Navigate replace to='/hot'/>}/>
+            <Route path='/:section' element={<PostsList />}/>
         </Routes>
     )
 }
