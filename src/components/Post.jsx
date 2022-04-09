@@ -2,13 +2,39 @@ import React from 'react'
 import styled from 'styled-components'
 
 function Post(props) {
+
+    
+    const date = new Date((props.date)*1000)
+    const today = new Date();
+    const diff = today.getUTCMilliseconds() - date.getUTCMilliseconds()
+
+    let timeSincePosted = 0;
+
+    //console.log(diff)
+
+    if ((diff/1000) > 1 && (diff/1000 < 60)) {
+        timeSincePosted = Math.floor(diff/1000) + ' segundos';
+    }
+
+    if ((diff/60) > 1 && (diff/60 < 60)) {
+        timeSincePosted = Math.floor(diff/60) + ' minutos';
+    }
+
+    if ((diff/3600000) > 1 && (diff/3600000 < 60)) {
+        timeSincePosted = Math.floor(diff/1000) + 'horas';
+    }
+
+    if ((diff/86400000) > 1 && (diff/86400000 < 30)) {
+        timeSincePosted = Math.floor(diff/1000) + 'dias';
+    }
+
     return (
         <PostWrapper>
             <Image />
             <TextData>
                 <TitleSubtitleWrapper>
                     <h3>{props.title}</h3>
-                    <p>enviado há 6 horas por <b>{props.author}</b></p>
+                    <p>enviado há {timeSincePosted} por <b>{props.author}</b></p>
                 </TitleSubtitleWrapper>
                 <a href={props.url} target="_blank" rel='noreferrer'>Visite o post</a>
             </TextData>
