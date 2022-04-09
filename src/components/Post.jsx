@@ -1,40 +1,31 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+import moment from 'moment';
 
 function Post(props) {
 
     
-    const date = new Date((props.date)*1000)
-    const today = new Date();
-    const diff = today.getUTCMilliseconds() - date.getUTCMilliseconds()
-
-    let timeSincePosted = 0;
-
-    //console.log(diff)
-
-    if ((diff/1000) > 1 && (diff/1000 < 60)) {
-        timeSincePosted = Math.floor(diff/1000) + ' segundos';
-    }
-
-    if ((diff/60) > 1 && (diff/60 < 60)) {
-        timeSincePosted = Math.floor(diff/60) + ' minutos';
-    }
-
-    if ((diff/3600000) > 1 && (diff/3600000 < 60)) {
-        timeSincePosted = Math.floor(diff/1000) + 'horas';
-    }
-
-    if ((diff/86400000) > 1 && (diff/86400000 < 30)) {
-        timeSincePosted = Math.floor(diff/1000) + 'dias';
-    }
-
+    const millis = props.date*1000;
+    const today = moment.utc().valueOf();
+    const diff = today - millis;
+    
+    const timePassedArray = [moment.duration(diff).years() + ' anos', moment.duration(diff).months() + ' meses', 
+    moment.duration(diff).weeks() + ' semanas', moment.duration(diff).days() + ' dias', 
+    moment.duration(diff).hours() + ' horas', moment.duration(diff).minutes() + ' minutos', 
+    moment.duration(diff).seconds() + ' segundos']
+    const timePassed = timePassedArray.filter(item => {
+        if (Number(item.split(' ')[0]) !== 0) {
+            return item;
+        }
+    })
+  
     return (
         <PostWrapper>
             <Image />
             <TextData>
                 <TitleSubtitleWrapper>
                     <h3>{props.title}</h3>
-                    <p>enviado há {timeSincePosted} por <b>{props.author}</b></p>
+                    <p>enviado há {timePassed[0]} por <b>{props.author}</b></p>
                 </TitleSubtitleWrapper>
                 <a href={props.url} target="_blank" rel='noreferrer'>Visite o post</a>
             </TextData>

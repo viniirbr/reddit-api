@@ -14,6 +14,7 @@ function PostsList() {
     }, [params.section]);
 
     const getReddits = async (section) => {
+        
         const response = await fetch(`https://www.reddit.com/r/reactjs/${section}.json?limit=10`);
         const data = await response.json();
         setReddits(data.data.children);
