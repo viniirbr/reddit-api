@@ -4,18 +4,18 @@ import styled from 'styled-components';
 import Post from './Post';
 import CircularProgress from '@mui/material/CircularProgress';
 
-function PostsList() {
+function PostsList(props) {
     const [reddits, setReddits] = useState([])
 
     const params = useParams();
 
     useEffect(() => {
         getReddits(params.section)
-    }, [params.section]);
+    }, [params.section, props.limit]);
 
     const getReddits = async (section) => {
-        
-        const response = await fetch(`https://www.reddit.com/r/reactjs/${section}.json?limit=10`);
+
+        const response = await fetch(`https://www.reddit.com/r/reactjs/${section}.json?limit=${props.limit}`);
         const data = await response.json();
         setReddits(data.data.children);
     }
