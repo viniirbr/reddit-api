@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Post from './Post';
 import CircularProgress from '@mui/material/CircularProgress';
+import ErrorPage from '../pages/ErrorPage';
+import axios from 'axios';
 
 function PostsList(props) {
-    const [reddits, setReddits] = useState([])
+    const [reddits, setReddits] = useState([]);
+    const [error, setError] = useState(null);
 
     const params = useParams();
-    console.log(props.limit)
 
     useEffect(() => {
         getReddits(params.section)
@@ -16,24 +18,35 @@ function PostsList(props) {
 
     const getReddits = async (section) => {
 
-        const response = await fetch(`https://www.reddit.com/r/reactjs/${section}.json?limit=${props.limit}`);
-        const data = await response.json();
-        setReddits(data.data.children);
+        try {
+            const json = await axios.get(`https://www.reddit.com/r/reactjs/${section}.json?limit=${props.limit}`,
+                { timeout: 5000 });
+            console.log(json.data)
+            setReddits(json.data.data.children);
+            
+        } catch (e) {
+            setError(e.message);
+        }
     }
-    return (
-        <PostsWrapper>
-            {(reddits.length === 0) ? <CircularProgress /> : reddits.map(item => {
-                return (
-                    <Post
-                        key={item.data.id}
-                        title={item.data.title}
-                        author={item.data.author}
-                        url={item.data.url}
-                        date={item.data.created_utc} />
-                )
-            })}
-        </PostsWrapper>
-    )
+    if (error == null) {
+        return (
+            <PostsWrapper>
+                {(reddits.length === 0) ? <CircularProgress style={{color: 'rgb(99, 36, 198)'}}/> : reddits.map(item => {
+                    return (
+                        <Post
+                            key={item.data.id}
+                            title={item.data.title}
+                            author={item.data.author}
+                            url={item.data.url}
+                            date={item.data.created_utc} />
+                    )
+                })}
+            </PostsWrapper>
+        )
+    } else {
+        return (<ErrorPage errorMessage={error} />)
+    }
+
 }
 
 const PostsWrapper = styled.div`

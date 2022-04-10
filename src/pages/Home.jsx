@@ -3,8 +3,6 @@ import PostsList from '../components/PostsList'
 
 function Home(props) {
 
-    console.log(props.limit)
-
     return (
         <Routes>
             <Route path='/' element={<Navigate replace to='/hot'/>}/>
