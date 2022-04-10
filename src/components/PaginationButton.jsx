@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import AddIcon from '@mui/icons-material/Add'; 
-import { grey } from '@mui/material/colors';
 
 function PaginationButton(props) {
   return (
@@ -27,17 +26,12 @@ const PagButton = styled.button`
   border-radius: 10px;
 
   &:hover {
-    background: rgb(83, 31, 167);
+    background: rgb(62, 23, 126);
   }
   cursor: pointer;
     p {
       color: white;
     }
-
-
-  span {
-    font-size: 2rem;
-  }
 `
 
 export default PaginationButton

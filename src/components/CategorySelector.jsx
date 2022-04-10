@@ -2,12 +2,12 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
-function CategorySelector() {
+function CategorySelector(props) {
     return (
         <ButtonRow>
-            <Navigation to={'/hot'}>Hot</Navigation>
-            <Navigation to={'/new'}>New</Navigation>
-            <Navigation to={'/rising'}>Rising</Navigation>
+            <Navigation to={'/hot'} onClick={props.onclick}>Hot</Navigation>
+            <Navigation to={'/new'} onClick={props.onclick}>New</Navigation>
+            <Navigation to={'/rising'} onClick={props.onclick}>Rising</Navigation>
         </ButtonRow>
     )
 }

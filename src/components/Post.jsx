@@ -16,7 +16,7 @@ function Post(props) {
     const timePassed = timePassedArray.filter(item => {
         if (Number(item.split(' ')[0]) !== 0) {
             return item;
-        }
+        } else return null;
     })
   
     return (

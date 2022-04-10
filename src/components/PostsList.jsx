@@ -8,6 +8,7 @@ function PostsList(props) {
     const [reddits, setReddits] = useState([])
 
     const params = useParams();
+    console.log(props.limit)
 
     useEffect(() => {
         getReddits(params.section)
