@@ -39,6 +39,10 @@ const PostWrapper = styled.div`
     width: 100%;
     padding: 15px 0;
     height: 140px;
+
+    @media screen and (max-width: 550px) {
+        height: initial;
+    }
 `
 
 const Image = styled.div`

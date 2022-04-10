@@ -21,7 +21,6 @@ function PostsList(props) {
         try {
             const json = await axios.get(`https://www.reddit.com/r/reactjs/${section}.json?limit=${props.limit}`,
                 { timeout: 5000 });
-            console.log(json.data)
             setReddits(json.data.data.children);
             
         } catch (e) {
